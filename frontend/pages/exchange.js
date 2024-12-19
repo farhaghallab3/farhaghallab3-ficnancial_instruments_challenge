@@ -10,8 +10,12 @@ export default function Exchange() {
     fetch("http://localhost:3001/api/exchange")
       .then((res) => res.json())
       .then((response) => {
-        // Extract data from response: hits.hits
-        const extractedData = response.hits?.hits?.map((item) => item._source) || [];
+        // Extract data from response: hits.hits, including _id
+        const extractedData =
+          response.hits?.hits?.map((item) => ({
+            id: item._id, // Add _id
+            ...item._source,
+          })) || [];
         console.log("Börsen-Daten.:", extractedData);
         setData(extractedData);
         setFilteredData(extractedData);
@@ -46,6 +50,7 @@ export default function Exchange() {
         <table className="table-auto w-full bg-white shadow-md rounded-lg">
           <thead>
             <tr className="bg-blue-500 text-white">
+              <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Symbol</th>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Typ</th>
@@ -56,6 +61,7 @@ export default function Exchange() {
           <tbody>
             {filteredData.map((item, index) => (
               <tr key={index} className="border-b hover:bg-blue-100">
+                <td className="px-4 py-2">{item.id || "N/A"}</td>
                 <td className="px-4 py-2">{item.symbol || "N/A"}</td>
                 <td className="px-4 py-2">{item.name || "N/A"}</td>
                 <td className="px-4 py-2">{item.type || "N/A"}</td>

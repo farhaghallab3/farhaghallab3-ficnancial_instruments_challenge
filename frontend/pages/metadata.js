@@ -11,12 +11,16 @@ export default function Metadata() {
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits
-        const extractedData = response.hits?.hits?.map((item) => item._source) || [];
-        console.log("Metadaten :", extractedData);
+         const extractedData =
+          response.hits?.hits?.map((item) => ({
+            id: item._id, // Add _id
+            ...item._source,
+          })) || [];
+        console.log("Metadaten-Daten.:", extractedData);
         setData(extractedData);
         setFilteredData(extractedData);
       })
-      .catch((err) => console.error("Fehler beim Abrufen der Daten:", err));
+      .catch((err) => console.error("Fehler beim Abrufen der Daten.:", err));
   }, []);
 
   const handleSearch = (e) => {
@@ -46,6 +50,7 @@ export default function Metadata() {
         <table className="table-auto w-full bg-white shadow-md rounded-lg">
           <thead>
             <tr className="bg-green-500 text-white">
+              <th className="px-4 py-2">ID</th>
               <th className="px-4 py-2">Symbol</th>
               <th className="px-4 py-2">Name</th>
               <th className="px-4 py-2">Typ</th>
@@ -56,6 +61,7 @@ export default function Metadata() {
           <tbody>
             {filteredData.map((item, index) => (
               <tr key={index} className="border-b hover:bg-green-100">
+              <td className="px-4 py-2">{item.id || "N/A"}</td>
                 <td className="px-4 py-2">{item.symbol || "N/A"}</td>
                 <td className="px-4 py-2">{item.name || "N/A"}</td>
                 <td className="px-4 py-2">{item.type || "N/A"}</td>

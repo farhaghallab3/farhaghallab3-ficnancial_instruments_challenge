@@ -1,4 +1,4 @@
-# Financial Instrument Display Web Application
+# Financial Instrument Web App
 
 ## Project Overview
 This project is a web application designed to display various financial instruments in an optimized, user-friendly interface. It is built with a focus on showcasing financial data, including different types of financial instruments, such as stocks, cryptocurrencies, commodities, and more. The application features three main sections (buttons) that allow users to view data related to **Exchange**, **Metadata**, and **Candle** for each financial instrument.

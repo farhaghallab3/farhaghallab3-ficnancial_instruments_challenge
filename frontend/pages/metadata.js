@@ -5,13 +5,14 @@ export default function Metadata() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3001/api/metadata")
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits
-         const extractedData =
+        const extractedData =
           response.hits?.hits?.map((item) => ({
             id: item._id, // Add _id
             ...item._source,
@@ -32,9 +33,42 @@ export default function Metadata() {
     setFilteredData(filtered);
   };
 
+  const handleCountryFilter = (country) => {
+    setSelectedCountry(country);
+    if (country === "") {
+      setFilteredData(data); // Show all data if no country is selected
+    } else {
+      const filtered = data.filter(
+        (item) => item.countryName?.toLowerCase() === country.toLowerCase()
+      );
+      setFilteredData(filtered);
+    }
+  };
+
+  const uniqueCountries = [...new Set(data.map((item) => item.countryName))]; // Extract unique countries
+
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-3xl font-bold text-green-600 mb-6">Metadaten-Daten</h1>
+    <div className="min-h-screen bg-gray-50 p-8 relative">
+      {/* Header Section */}
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold text-green-600">Metadaten-Daten</h1>
+
+        {/* Country Filter Dropdown */}
+        <div className="relative">
+          <select
+            value={selectedCountry}
+            onChange={(e) => handleCountryFilter(e.target.value)}
+            className="border p-2 rounded bg-white text-gray-600 shadow-sm"
+          >
+            <option value="">All Countries</option>
+            {uniqueCountries.map((country, index) => (
+              <option key={index} value={country}>
+                {country || "Unbekannt"}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {/* Search Input */}
       <input
@@ -59,16 +93,27 @@ export default function Metadata() {
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item, index) => (
-              <tr key={index} className="border-b hover:bg-green-100">
-              <td className="px-4 py-2">{item.id || "N/A"}</td>
-                <td className="px-4 py-2">{item.symbol || "N/A"}</td>
-                <td className="px-4 py-2">{item.name || "N/A"}</td>
-                <td className="px-4 py-2">{item.type || "N/A"}</td>
-                <td className="px-4 py-2">{item.currency || "N/A"}</td>
-                <td className="px-4 py-2">{item.countryName || "N/A"}</td>
+            {filteredData.length > 0 ? (
+              filteredData.map((item, index) => (
+                <tr key={index} className="border-b hover:bg-green-100">
+                  <td className="px-4 py-2">{item.id || "N/A"}</td>
+                  <td className="px-4 py-2">{item.symbol || "N/A"}</td>
+                  <td className="px-4 py-2">{item.name || "N/A"}</td>
+                  <td className="px-4 py-2">{item.type || "N/A"}</td>
+                  <td className="px-4 py-2">{item.currency || "N/A"}</td>
+                  <td className="px-4 py-2">{item.countryName || "N/A"}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="6"
+                  className="text-center text-gray-500 py-4"
+                >
+                  No data found.
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

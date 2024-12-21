@@ -1,4 +1,4 @@
-# Financial Instrument Display Web Application
+# Financial Instrument Display Web App (German)
 
 ## Project Overview
 This project is a web application designed to display various financial instruments in an optimized, user-friendly interface. It is built with a focus on showcasing financial data, including different types of financial instruments, such as stocks, cryptocurrencies, commodities, and more. The application features three main sections (buttons) that allow users to view data related to **Exchange**, **Metadata**, and **Candle** for each financial instrument.
@@ -16,11 +16,12 @@ The application displays the following types of financial instruments:
 
 Each financial instrument is represented with data from three unique JSON files: `exchange.json`, `metadata.json`, and `candle.json`. These files contain different data structures based on the instrument type and include essential details for each type, such as market information, historical data, and performance indicators. Each financial instrument is identified by either its **symbol** or **ISIN** (International Securities Identification Number).
 
-## Key Features
+## Key Features (German)
+-**Menu about this app**
 - **Three Buttons on Home Page**: 
   - **Exchange**: Displays exchange-related information for the selected instrument.
   - **Metadata**: Displays metadata like the name, description, and category of the instrument.
-  - **Candle**: Shows historical data in a candlestick chart format.
+  - **Candle**: Shows historical data in a candles.
 
 - **Responsive Design**: The website is designed to be fully responsive and accessible across all devices with appropriate media queries to optimize UI/UX.
 

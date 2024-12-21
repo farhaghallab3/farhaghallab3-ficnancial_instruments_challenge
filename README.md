@@ -17,7 +17,7 @@ The application displays the following types of financial instruments:
 Each financial instrument is represented with data from three unique JSON files: `exchange.json`, `metadata.json`, and `candle.json`. These files contain different data structures based on the instrument type and include essential details for each type, such as market information, historical data, and performance indicators. Each financial instrument is identified by either its **symbol** or **ISIN** (International Securities Identification Number).
 
 ## Key Features (German)
--**Menu about this app**
+- **Menu about this app**
 - **Three Buttons on Home Page**: 
   - **Exchange**: Displays exchange-related information for the selected instrument.
   - **Metadata**: Displays metadata like the name, description, and category of the instrument.

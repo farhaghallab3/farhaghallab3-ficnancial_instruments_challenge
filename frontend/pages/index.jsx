@@ -43,7 +43,7 @@ export default function Home() {
       {/* Menu Button */}
       <button
         onClick={toggleModal}
-        className="absolute top-4 left-4  text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none"
+        className="absolute top-4 left-4 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none"
       >
         ☰|☰
       </button>

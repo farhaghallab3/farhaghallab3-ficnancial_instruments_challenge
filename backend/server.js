@@ -31,6 +31,31 @@ app.get('/api/exchange', (req, res) => {
   res.json(data);
 });
 
+app.post('/api/exchange', (req, res) => {
+  const newData = req.body; // Get new data from the request body
+  const filePath = path.join(__dirname, 'data', 'exchange.json');
+
+  try {
+    const existingData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+    // Add new data to the hits array
+    if (!existingData.hits || !existingData.hits.hits) {
+      existingData.hits = { hits: [] };
+    }
+    existingData.hits.hits.push({ _id: newData.id, _source: newData });
+
+    // Write updated data back to the file
+    fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2), 'utf-8');
+
+    res.status(201).json({ message: 'Data added successfully.' });
+  } catch (error) {
+    console.error('Error writing to JSON file:', error.message);
+    res.status(500).json({ message: 'Failed to add data.' });
+  }
+});
+
+
+
 app.get('/api/metadata', (req, res) => {
   const data = loadJSON('metadata.json');
   if (!data) {

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles (optional) */
 body {
   font-family: 'Arial', sans-serif;
 }

@@ -179,6 +179,8 @@ export default function Exchange() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex items-center justify-between mb-6">
       <h1 className="text-3xl font-bold text-blue-500 mb-6">Börsen-Daten</h1>
+      <link rel="canonical" href="http://localhost:3000/exchange" />
+
       {/* Header and Button Section */}
       
       <Head>

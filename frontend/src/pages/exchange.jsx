@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import React from "react";
+import FocusLock from "react-focus-lock";
+import Head from "next/head";
 
 export default function Exchange() {
   const [data, setData] = useState([]); // Full data
-   const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [filteredData, setFilteredData] = useState([]); // Filtered data for the table
   const [search, setSearch] = useState(""); // Search term
   const [showModal, setShowModal] = useState(false); // Show modal state
@@ -74,8 +77,7 @@ export default function Exchange() {
       const fieldName = name.split(".")[1]; // Get the key inside `_source`
       setNewData((prev) => ({
         ...prev,
-        _source:
-         {
+        _source: {
           ...prev._source,
           [fieldName]: value,
         },
@@ -88,20 +90,20 @@ export default function Exchange() {
     }
   };
 
+  // Filter by country
   const handleCountryFilter = (country) => {
     setSelectedCountry(country);
     if (country === "") {
       setFilteredData(data); // Show all data if no country is selected
     } else {
       const filtered = data.filter(
-        (item) => item.countryName?.toLowerCase() === country.toLowerCase()
+        (item) => item._source.country?.toLowerCase() === country.toLowerCase()
       );
       setFilteredData(filtered);
     }
   };
 
-  const uniqueCountries = [...new Set(data.map((item) => item.countryName))]; // Extract unique countries
-
+  const uniqueCountries = [...new Set(data.map((item) => item._source.country))];
 
   // Add new data
   const handleAddNewData = () => {
@@ -175,9 +177,35 @@ export default function Exchange() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      {/* Header and Button Section */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-blue-600">Börsen-Daten</h1>
+      <h1 className="text-3xl font-bold text-blue-500 mb-6">Börsen-Daten</h1>
+      {/* Header and Button Section */}
+      
+      <Head>
+  <title>Börsen-Daten | Finanzinstrumente Dashboard</title>
+  <meta
+    name="description"
+    content="Sehen Sie Börsendaten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu."
+  />
+  <meta name="keywords" content="Börsen-Daten, Finanzdaten, Finanzinstrumente, Dashboard" />
+  <meta name="robots" content="index, follow" />
+
+  {/* Open Graph (OG) metadata */}
+  <meta property="og:title" content="Börsen-Daten | Finanzinstrumente Dashboard" />
+  <meta property="og:description" content="Sehen Sie Börsendaten und analysieren Sie Finanzdaten einfach und schnell." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:3000/exchange" />
+  <meta property="og:image" content="/path-to-image.png" />
+
+  {/* Twitter Card metadata */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Börsen-Daten | Finanzinstrumente Dashboard" />
+  <meta name="twitter:description" content="Sehen Sie Börsendaten und analysieren Sie Finanzdaten einfach und schnell." />
+  <meta name="twitter:image" content="/path-to-image.png" />
+</Head>
+
+
+        {/* Button to Add New Entry */} 
 
         <button
           onClick={() => setShowModal(true)}
@@ -187,17 +215,40 @@ export default function Exchange() {
         </button>
       </div>
 
-
-
       {/* Search Input */}
       <div className="mb-6">
-        <input
-          type="text"
-          placeholder="Nach Name suchen..."
-          value={search}
-          onChange={handleSearch}
-          className="border p-2 rounded w-full"
-        />
+        
+      <label htmlFor="search-input" className="sr-only">Search through exchange data</label>
+<input
+  id="search-input"
+  type="text"
+  placeholder="Nach Name suchen..."
+  value={search}
+  onChange={handleSearch}
+  className="border p-2 rounded w-full"
+  aria-label="Search through exchange data"
+/>
+
+      </div>
+
+      {/* Country Filter */}
+      <div className="flex items-center justify-between mb-6">
+        <label htmlFor="country-filter" className="font-bold text-gray-700">
+          Filtern nach Land:
+        </label>
+        <select
+          value={selectedCountry}
+          onChange={(e) => handleCountryFilter(e.target.value)}
+          className="border p-2 rounded bg-white text-gray-600 shadow-sm"
+          aria-label="Filter by country"
+        >
+          <option value="">All Countries</option>
+          {uniqueCountries.map((country, index) => (
+            <option key={index} value={country}>
+              {country || "Unknown"}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Table */}
@@ -239,84 +290,78 @@ export default function Exchange() {
         </table>
       </div>
 
-     {/* Modal for Adding New Entry */}
-{showModal && (
-  <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-    <div className="bg-white p-6 rounded shadow-lg w-96 max-h-[80vh] overflow-y-auto">
-      <h2 className="text-xl font-bold mb-4">Neue Börsen-Daten hinzufügen</h2>
-      <div className="space-y-4">
-        {Object.entries(newData).map(([key, value]) => {
-          if (key === "_source") {
-            // For nested "_source" fields
-            return Object.entries(newData._source).map(([nestedKey, nestedValue]) => (
-              <div key={nestedKey}>
-                <label className="block font-medium text-gray-700 mb-2">
-                  {nestedKey.toUpperCase()}
-                </label>
-                <input
-                  type="text"
-                  name={`_source.${nestedKey}`}
-                  placeholder={`Enter ${nestedKey}`}
-                  value={nestedValue}
-                  onChange={(e) => {
-                    const { name, value } = e.target;
-                    const fieldName = name.split(".")[1]; // Extract nested key
-                    setNewData((prev) => ({
-                      ...prev,
-                      _source: {
-                        ...prev._source,
-                        [fieldName]: value,
-                      },
-                    }));
-                  }}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-            ));
-          } else {
-            // For top-level fields
-            return (
-              <div key={key}>
-                <label className="block font-medium text-gray-700 mb-2">
-                  {key.toUpperCase()}
-                </label>
-                <input
-                  type="text"
-                  name={key}
-                  placeholder={`Enter ${key}`}
-                  value={value}
-                  onChange={(e) => {
-                    const { name, value } = e.target;
-                    setNewData((prev) => ({
-                      ...prev,
-                      [name]: value,
-                    }));
-                  }}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-            );
-          }
-        })}
-      </div>
-      <div className="flex justify-end mt-4">
-        <button
-          onClick={() => setShowModal(false)}
-          className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2 hover:bg-gray-400 transform hover:scale-105 transition-all"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleAddNewData}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transform hover:scale-105 transition-all"
-        >
-          Done
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+      {/* Modal for Adding New Entry */}
+      {showModal && (
+  <FocusLock>
+    <div
+      className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
+      aria-modal="true"
+      role="dialog"
+    >
+      <div className="bg-white p-6 rounded shadow-lg w-96 max-h-[80vh] overflow-y-auto">
+        <h2 className="text-xl font-bold mb-4">Neue Börsen-Daten hinzufügen</h2>
+            <div className="space-y-4">
+              {Object.entries(newData).map(([key, value]) => {
+                if (key === "_source") {
+                  // For nested "_source" fields
+                  return Object.entries(newData._source).map(
+                    ([nestedKey, nestedValue]) => (
+                      <div key={nestedKey}>
+                        <label className="block font-medium text-gray-700 mb-2">
+                          {nestedKey.toUpperCase()}
+                        </label>
+                        <input
+                          type="text"
+                          name={`_source.${nestedKey}`}
+                          placeholder={`Enter ${nestedKey}`}
+                          value={nestedValue}
+                          onChange={handleInputChange}
+                          className="w-full border p-2 rounded"
+                          aria-label={`Input for ${nestedKey}`}
+                        />
+                      </div>
+                    )
+                  );
+                } else {
+                  // For top-level fields
+                  return (
+                    <div key={key}>
+                      <label className="block font-medium text-gray-700 mb-2">
+                        {key.toUpperCase()}
+                      </label>
+                      <input
+                        type="text"
+                        name={key}
+                        placeholder={`Enter ${key}`}
+                        value={value}
+                        onChange={handleInputChange}
+                        className="w-full border p-2 rounded"
+                        aria-label={`Input for ${key}`}
+                      />
+                    </div>
+                  );
+                }
+              })}
+            </div>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2 hover:bg-gray-400 transform hover:scale-105 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddNewData}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transform hover:scale-105 transition-all"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+          
+        </div>
+        </FocusLock>
+      )}
     </div>
   );
 }

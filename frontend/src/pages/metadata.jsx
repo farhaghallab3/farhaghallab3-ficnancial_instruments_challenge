@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import React from "react";
+import Head from "next/head";
 
 export default function Metadata() {
   const [data, setData] = useState([]);
@@ -49,11 +50,39 @@ export default function Metadata() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8 relative">
+      <h1 className="text-3xl font-bold text-green-600 mb-6">Metadaten-Daten</h1>
       {/* Header Section */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-green-600">Metadaten-Daten</h1>
+      <Head>
+  <title>Metadaten-Daten | Finanzinstrumente Dashboard</title>
+  <meta
+    name="description"
+    content="Sehen Sie Metadatendaten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu."
+  />
+  <meta name="keywords" content="Metadaten-Daten, Finanzdaten, Finanzinstrumente, Dashboard" />
+  <meta name="robots" content="index, follow" />
+
+  {/* Open Graph (OG) metadata */}
+  <meta property="og:title" content="Metadaten-Daten | Finanzinstrumente Dashboard" />
+  <meta property="og:description" content="Sehen Sie Börsendaten und analysieren Sie Finanzdaten einfach und schnell." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://localhost:3000/metadata" />
+  <meta property="og:image" content="/path-to-image.png" />
+
+  {/* Twitter Card metadata */}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Metadaten-Daten | Finanzinstrumente Dashboard" />
+  <meta name="twitter:description" content="Sehen Sie Metadatenedaten und analysieren Sie Finanzdaten einfach und schnell." />
+  <meta name="twitter:image" content="/path-to-image.png" />
+</Head>
+
 
         {/* Country Filter Dropdown */}
+        <div className="flex items-center justify-between mb-6">
+          <label htmlFor="country-filter" className="font-bold text-gray-700">
+            Filter nach Land:
+          </label>
+        </div>
         <div className="relative">
           <select
             value={selectedCountry}
@@ -71,13 +100,19 @@ export default function Metadata() {
       </div>
 
       {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Nach Name suchen..."
-        value={search}
-        onChange={handleSearch}
-        className="border p-2 rounded w-full mb-6"
+      <div className="mb-6">
+      <label htmlFor="search-input" className="sr-only">Search through exchange data</label>
+<input
+  id="search-input"
+  type="text"
+  placeholder="Nach Name suchen..."
+  value={search}
+  onChange={handleSearch}
+  className="border p-2 rounded w-full"
+  aria-label="Search through exchange data"
+
       />
+      </div>
 
       {/* Table */}
       <div className="overflow-x-auto">

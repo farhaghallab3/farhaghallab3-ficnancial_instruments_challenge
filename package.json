@@ -13,5 +13,8 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     }
+  },
+  "dependencies": {
+    "lighthouse": "^12.3.0"
   }
 }

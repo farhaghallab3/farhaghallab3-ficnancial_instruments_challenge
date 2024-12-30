@@ -5,3 +5,26 @@
 body {
   font-family: 'Arial', sans-serif;
 }
+
+.bg-gray-600:hover {
+  background-color: #2d3748; /* Gray 800 */
+}
+
+.bg-blue-500 {
+  background-color: #0056b3; /* Blue 700 */
+}
+.text-white {
+  color: #ffffff;
+}
+
+.bg-green-500 {
+  background-color: #30c806; /* green 700 */
+}
+
+.bg-orange-500 {
+  background-color: #ff8c00; /* orange 700 */
+}
+.bg-yellow-500 {
+  background-color: #f59e0b; /* Adjust yellow for better contrast */
+}
+

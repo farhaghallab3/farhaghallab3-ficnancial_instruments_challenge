@@ -1,83 +1,105 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import Head from "next/head";
+
+// Register required Chart.js components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export default function Candles() {
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-  const [search, setSearch] = useState("");
+  const [chartData, setChartData] = useState({});
+  const [selectedSymbol, setSelectedSymbol] = useState("");
 
   useEffect(() => {
+    // Fetch data
     fetch("http://localhost:3001/api/candle")
       .then((res) => res.json())
       .then((response) => {
-        // Extracting the _source field from the hits array
         const extractedData =
           response.hits?.hits?.map((item) => ({
-            id: item._id, // Add _id
+            id: item._id,
             ...item._source,
           })) || [];
-        console.log("Candle-Daten.:", extractedData);
         setData(extractedData);
-        setFilteredData(extractedData);
+        if (extractedData.length > 0) {
+          updateChartData(extractedData, extractedData[0].symbol); // Default chart
+        }
       })
-      .catch((err) => console.error("Fehler beim Abrufen der Daten.:", err));
+      .catch((err) => console.error("Error fetching data:", err));
   }, []);
 
-  const handleSearch = (e) => {
-    const searchValue = e.target.value.toLowerCase();
-    setSearch(searchValue);
-    const filtered = data.filter((item) =>
-      item.symbol?.toLowerCase().includes(searchValue)
-    );
-    setFilteredData(filtered);
+  const updateChartData = (data, symbol) => {
+    const filtered = data.filter((item) => item.symbol === symbol);
+    const labels = filtered.map((item) => item.dateTime.split("T")[0]);
+    const prices = filtered.map((item) => item.endPrice);
+
+    setChartData({
+      labels,
+      datasets: [
+        {
+          label: `End Prices for ${symbol}`,
+          data: prices,
+          borderColor: "rgba(255, 206, 86, 1)",
+          backgroundColor: "rgba(255, 206, 86, 0.2)",
+          borderWidth: 2,
+        },
+      ],
+    });
+    setSelectedSymbol(symbol);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+
+    <div className="min-h-screen bg-gray-200 p-8">
       <h1 className="text-3xl font-bold text-yellow-600 mb-6">Candle-Daten</h1>
+      <link rel="canonical" href="http://localhost:3000/candles" />
 
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Nach Symbol suchen..."
-        value={search}
-        onChange={handleSearch}
-        className="border p-2 rounded w-full mb-6"
-      />
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full bg-white shadow-md rounded-lg">
-          <thead>
-            <tr className="bg-yellow-500 text-white">
-              <th className="px-4 py-2">ID</th>
-              <th className="px-4 py-2">Symbol</th>
-              <th className="px-4 py-2">Datum</th>
-              <th className="px-4 py-2">Startpreis</th>
-              <th className="px-4 py-2">Höchster Preis</th>
-              <th className="px-4 py-2">Niedrigster Preis</th>
-              <th className="px-4 py-2">EndPreis</th>
-              <th className="px-4 py-2">Volumen</th>
-              <th className="px-4 py-2">Währung</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((item, index) => (
-              <tr key={index} className="border-b hover:bg-yellow-100">
-                <td className="px-4 py-2">{item.id || "N/A"}</td>
-                <td className="px-4 py-2">{item.symbol || "N/A"}</td>
-                <td className="px-4 py-2">{item.dateTime || "N/A"}</td>
-                <td className="px-4 py-2">{item.startPrice || "N/A"}</td>
-                <td className="px-4 py-2">{item.highestPrice || "N/A"}</td>
-                <td className="px-4 py-2">{item.lowestPrice || "N/A"}</td>
-                <td className="px-4 py-2">{item.endPrice || "N/A"}</td>
-                <td className="px-4 py-2">{item.volume || "N/A"}</td>
-                <td className="px-4 py-2">{item.currency || "N/A"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Head>
+  <title>Candle Data | Financial Dashboard</title>
+  <meta
+    name="description"
+    content="View and analyze candlestick data for financial symbols over time."
+  />
+  <meta property="og:title" content="Candle Data | Financial Dashboard" />
+  <meta property="og:description" content="View candlestick data for financial analysis." />
+  <meta property="og:image" content="/images/chart-preview.png" />
+  <meta property="og:url" content="http://localhost:3000/candles" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Candle Data | Financial Dashboard" />
+  <meta name="twitter:description" content="View candlestick data for financial analysis." />
+  <meta name="twitter:image" content="/images/chart-preview.png" />
+</Head>
+
+
+      {/* Symbol Selector */}
+     <select
+  value={selectedSymbol}
+  onChange={(e) => updateChartData(data, e.target.value)}
+  className="border p-2 rounded mb-4"
+  aria-label="Select a financial symbol to display chart data"
+>
+
+        {Array.from(new Set(data.map((item) => item.symbol))).map((symbol) => (
+          <option key={symbol} value={symbol}>
+            {symbol}
+          </option>
+        ))}
+      </select>
+
+      {/* Line Chart */}
+      {chartData.labels && chartData.datasets && (
+        <div role="img" aria-labelledby="chart-title" aria-describedby="chart-desc">
+  <h2 id="chart-title" className="sr-only">End Prices Chart</h2>
+  <p id="chart-desc" className="sr-only">
+    A line chart displaying the end prices of selected financial symbols over time.
+  </p>
+  <Line data={chartData} />
+</div>
+
+
+      )}
     </div>
   );
 }

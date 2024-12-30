@@ -48,4 +48,11 @@ describe('Exchange Page Tests', () => {
     cy.contains('Test Name').scrollIntoView({ offset: { top: 0, left: 0 } }).should('be.visible');
     cy.contains('Test Country').scrollIntoView({ offset: { top: 0, left: 0 } }).should('be.visible');
   });
+
+   it('Should filter table based on country dropdown', () => {
+    cy.visit('http://localhost:3000/metadata'); // Visit the Metadata page
+    cy.get('select').select('USA'); // Select a country from the dropdown
+    cy.contains('USA').should('be.visible'); // Check if country data is displayed
+  });
 });
+

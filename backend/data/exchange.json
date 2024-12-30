@@ -1412,6 +1412,38 @@
             "segmentNameExchange": "N/A"
           }
         }
+      },
+      {
+        "_source": {
+          "_index": "",
+          "_type": "",
+          "_id": "TEST-ID",
+          "_score": 0,
+          "_source": {
+            "symbol": "TEST-SYMBOL",
+            "ticker": "N/A",
+            "code": "N/A",
+            "isin": "N/A",
+            "type": "N/A",
+            "wpkn": "N/A",
+            "name": "Test Name",
+            "nameLong": "N/A",
+            "region": "N/A",
+            "country": "Test Country",
+            "currency": "N/A",
+            "figi": "N/A",
+            "cik": "N/A",
+            "lei": "N/A",
+            "source": "N/A",
+            "operatingMIC": "N/A",
+            "codeExchange": "N/A",
+            "virtualExchange": "N/A",
+            "nameExchange": "N/A",
+            "isArtificialExchange": "N/A",
+            "segmentExchange": "N/A",
+            "segmentNameExchange": "N/A"
+          }
+        }
       }
     ]
   }

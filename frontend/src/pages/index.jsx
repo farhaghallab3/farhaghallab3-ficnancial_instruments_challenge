@@ -39,7 +39,7 @@ export default function Home() {
             }`}
             style={{
               left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 50}vh`, // Start randomly between 0% and 50% of the screen height
+              top: `${Math.random() * 30}vh`, // Start randomly between 0% and 50% of the screen height
               animationDuration: `${Math.random() * 5 + 5}s`, // Random duration between 5-10 seconds
             }}
           ></div>

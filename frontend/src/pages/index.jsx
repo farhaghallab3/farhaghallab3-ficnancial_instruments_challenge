@@ -2,9 +2,23 @@ import React, { useState } from "react";
 import Link from "next/link";
 import FocusLock from "react-focus-lock";
 import Head from "next/head";
+import Image from "next/image";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  
+  const animationData = Array.from({ length: 10 }).map(() => ({
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 30}vh`, // Start randomly between 0% and 30% of the screen height
+    animationDuration: `${Math.random() * 5 + 5}s`, // Random duration between 5-10 seconds
+    className:
+      Math.random() < 0.33
+        ? "bitcoin"
+        : Math.random() < 0.66
+        ? "coin"
+        : "ethereum",
+  }));
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -16,6 +30,7 @@ export default function Home() {
       role="main"
       aria-labelledby="dashboard-title"
     >
+      {/* Metadata */}
       <Head>
         <title>Dashboard für Finanzinstrumente</title>
         <meta
@@ -23,26 +38,35 @@ export default function Home() {
           content="Ein Dashboard zum Erkunden von Börsen-, Metadaten- und Candle-Daten."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="preload"
+          href="/fonts/custom-font.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
       </Head>
 
       {/* Background Animation */}
       <div className="absolute inset-0 overflow-hidden z-0">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {animationData.map((style, i) => (
           <div
             key={i}
-            className={`absolute w-16 h-16 bg-contain bg-no-repeat animate-fall ${
-              i % 3 === 0
-                ? "bg-bitcoin"
-                : i % 3 === 1
-                ? "bg-coin"
-                : "bg-ethereum"
-            }`}
+            className={`absolute w-16 h-16 animate-fall`}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 30}vh`, // Start randomly between 0% and 50% of the screen height
-              animationDuration: `${Math.random() * 5 + 5}s`, // Random duration between 5-10 seconds
+              left: style.left,
+              top: style.top,
+              animationDuration: style.animationDuration,
             }}
-          ></div>
+          >
+            <Image
+              src={`/images/${style.className}.png`}
+              alt={style.className}
+              width={64}
+              height={64}
+              priority={false} // Don't preload images
+            />
+          </div>
         ))}
       </div>
 
@@ -83,6 +107,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Menu Button */}
       <button
         onClick={toggleModal}
         aria-label="Open Information Modal"
@@ -91,6 +116,7 @@ export default function Home() {
         ☰
       </button>
 
+      {/* Modal */}
       {isModalOpen && (
         <FocusLock>
           <div

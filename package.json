@@ -6,7 +6,12 @@
     "tailwindcss": "^3.4.16"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build" : "next build frontend",
+    "start": "next start frontend",
+    "dev": "next"
+
+
   },
   "jest": {
     "testEnvironment": "jsdom",

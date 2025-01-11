@@ -125,7 +125,7 @@ export default function Exchange() {
     setFilteredData(updatedData);
 
     // Send new data to the backend
-    fetch("http://localhost:3001/api/exchange", {
+    fetch(`${baseUrl}/api/exchange`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sanitizedData),

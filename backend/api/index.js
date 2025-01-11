@@ -57,12 +57,18 @@ app.post('/api/exchange', (req, res) => {
 
 
 app.get('/api/metadata', (req, res) => {
-  const data = loadJSON('metadata.json');
-  if (!data) {
-    return res.status(500).json({ message: 'Failed to load metadata.' });
+  try {
+    const data = loadJSON('metadata.json');
+    if (!data) {
+      throw new Error('Failed to load metadata data');
+    }
+    res.json(data);
+  } catch (error) {
+    console.error('Error in /api/metadata:', error.message);
+    res.status(500).json({ message: 'Failed to load metadata data.' });
   }
-  res.json(data);
 });
+
 
 app.get('/api/candle', (req, res) => {
   console.log('Fetching candlestick data...');

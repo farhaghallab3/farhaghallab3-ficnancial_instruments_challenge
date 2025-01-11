@@ -6,7 +6,8 @@
     "node": "16.x"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node api/index.js"
   },
   "keywords": [],
   "author": "",

@@ -13,7 +13,7 @@ export default function Candles() {
 
   useEffect(() => {
     // Fetch data
-    fetch("${import.meta.env.VITE_BACKEND_URL}/candle")
+    fetch("${import.meta.CANDLE_API_URL}")
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

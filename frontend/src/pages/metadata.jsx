@@ -8,8 +8,10 @@ export default function Metadata() {
   const [search, setSearch] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 
+  
+
   useEffect(() => {
-    fetch("${import.meta.env.VITE_BACKEND_URL}/metadata")
+    fetch("${import.meta.METADATA_API_URL}")
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits

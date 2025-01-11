@@ -4,6 +4,7 @@ import FocusLock from "react-focus-lock";
 import Head from "next/head";
 
 export default function Exchange() {
+  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || ""; // Use NEXT_PUBLIC_ for client-side access
   const [data, setData] = useState([]); // Full data
   const [selectedCountry, setSelectedCountry] = useState("");
   const [filteredData, setFilteredData] = useState([]); // Filtered data for the table
@@ -42,7 +43,7 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch("${import.meta.EXCHANGE_API_URL}")
+    fetch(`${baseUrl}/api/exchange`)
       .then((res) => res.json())
       .then((response) => {
         const extractedData =
@@ -179,7 +180,7 @@ export default function Exchange() {
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="flex items-center justify-between mb-6">
       <h1 className="text-3xl font-bold text-blue-500 mb-6">Börsen-Daten</h1>
-      <link rel="canonical" href="http://localhost:3000/exchange" />
+      <link rel="canonical" href={`${baseUrl}/exchange/`} />
 
       {/* Header and Button Section */}
       
@@ -196,7 +197,7 @@ export default function Exchange() {
   <meta property="og:title" content="Börsen-Daten | Finanzinstrumente Dashboard" />
   <meta property="og:description" content="Sehen Sie Börsendaten und analysieren Sie Finanzdaten einfach und schnell." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://localhost:3000/exchange" />
+  <meta property="og:url" content={`${baseUrl}/exchange}`} />
   <meta property="og:image" content="/path-to-image.png" />
 
   {/* Twitter Card metadata */}

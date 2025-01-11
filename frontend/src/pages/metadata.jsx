@@ -3,6 +3,7 @@ import React from "react";
 import Head from "next/head";
 
 export default function Metadata() {
+  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || ""; // Use NEXT_PUBLIC_ for client-side access
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
@@ -11,7 +12,7 @@ export default function Metadata() {
   
 
   useEffect(() => {
-    fetch("${import.meta.METADATA_API_URL}")
+    fetch(`${baseUrl}/api/metadata`)
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits
@@ -68,7 +69,7 @@ export default function Metadata() {
   <meta property="og:title" content="Metadaten-Daten | Finanzinstrumente Dashboard" />
   <meta property="og:description" content="Sehen Sie Börsendaten und analysieren Sie Finanzdaten einfach und schnell." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://localhost:3000/metadata" />
+  <meta property="og:url" content={`${baseUrl}/metadata`} />
   <meta property="og:image" content="/path-to-image.png" />
 
   {/* Twitter Card metadata */}

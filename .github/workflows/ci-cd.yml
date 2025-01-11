@@ -28,6 +28,7 @@ jobs:
         working-directory: ./backend
         run: |
           npm ci
+          npm run lint
           npm test
 
       # Install dependencies and test the frontend

@@ -42,7 +42,7 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch("http://localhost:3001/api/exchange")
+    fetch("${import.meta.env.VITE_BACKEND_URL}/exchange")
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

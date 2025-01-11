@@ -81,7 +81,7 @@ module.exports = app;
 
 // Start the server (only if not running in test environment)
 if (require.main === module) {
-  const PORT = 3001;
+  const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
   });

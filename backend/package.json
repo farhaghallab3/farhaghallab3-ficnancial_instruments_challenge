@@ -1,13 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "api/index.js",
   "engines": {
     "node": "16.x"
   },
   "scripts": {
     "test": "jest",
-    "start": "node api/server.js"
+    "start": "node api/index.js",
+    "build": "echo 'No build step required for backend.'"
   },
   "keywords": [],
   "author": "",

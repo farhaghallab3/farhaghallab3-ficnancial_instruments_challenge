@@ -7,33 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-export default async function handler(req, res) {
-  const { REACT_APP_API_URL, SECRET_API_KEY } = process.env;
-
-  if (!REACT_APP_API_URL || !SECRET_API_KEY) {
-    return res.status(500).json({ error: 'Missing environment variables' });
-  }
-
-  if (req.method === 'GET') {
-    try {
-      const response = await fetch(`${REACT_APP_API_URL}/data`, {
-        headers: {
-          Authorization: `Bearer ${SECRET_API_KEY}`,
-        },
-      });
-      const data = await response.json();
-      res.status(200).json(data);
-    } catch (err) {
-      res.status(500).json({ error: 'Failed to fetch data', details: err.message });
-    }
-  } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
-  }
-}
-
-
-
-
 // Function to load JSON data dynamically with better error handling
 const loadJSON = (fileName) => {
   try {

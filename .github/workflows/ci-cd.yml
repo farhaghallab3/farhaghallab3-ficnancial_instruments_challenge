@@ -25,7 +25,7 @@ jobs:
 
       # Install dependencies and test the backend
       - name: Install and Test Backend
-        working-directory: ./backend
+        working-directory: .frontend/backend
         run: |
           npm ci
           npm test

@@ -10,7 +10,7 @@ app.use(express.json());
 // Function to load JSON data dynamically with better error handling
 const loadJSON = (fileName) => {
   try {
-    const filePath = path.join(__dirname, '../data', fileName); // Adjust path
+    const filePath = path.join(__dirname, 'data', fileName);
     if (!fs.existsSync(filePath)) {
       throw new Error(`File ${fileName} not found.`);
     }
@@ -22,7 +22,8 @@ const loadJSON = (fileName) => {
   }
 };
 
-app.get('/exchange', (req, res) => {
+// Routes to serve JSON files
+app.get('/api/exchange', (req, res) => {
   const data = loadJSON('exchange.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load exchange data.' });
@@ -30,9 +31,9 @@ app.get('/exchange', (req, res) => {
   res.json(data);
 });
 
-app.post('/exchange', (req, res) => {
+app.post('/api/exchange', (req, res) => {
   const newData = req.body; // Get new data from the request body
-  const filePath = path.join(__dirname, '../data', 'exchange.json'); // Adjust path
+  const filePath = path.join(__dirname, 'data', 'exchange.json');
 
   try {
     const existingData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -53,7 +54,9 @@ app.post('/exchange', (req, res) => {
   }
 });
 
-app.get('/metadata', (req, res) => {
+
+
+app.get('/api/metadata', (req, res) => {
   const data = loadJSON('metadata.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load metadata.' });
@@ -61,12 +64,26 @@ app.get('/metadata', (req, res) => {
   res.json(data);
 });
 
-app.get('/candle', (req, res) => {
+app.get('/api/candle', (req, res) => {
+  console.log('Fetching candlestick data...');
   const data = loadJSON('candle.json');
   if (!data) {
+    console.error('Failed to load candle data.');
     return res.status(500).json({ message: 'Failed to load candle data.' });
   }
+  console.log('Candle data loaded:', data);
   res.json(data);
 });
 
+
+// Export the app for testing purposes
 module.exports = app;
+
+// Start the server (only if not running in test environment)
+if (require.main === module) {
+  const PORT = 3001;
+  app.listen(PORT, () => {
+    console.log(`Backend server running on http://localhost:${PORT}`);
+  });
+
+}

@@ -3,6 +3,22 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
+const allowedOrigins = [
+  "https://<your-frontend>.vercel.app", // Frontend URL
+  "http://localhost:3000", // For local development
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
 const app = express();
 app.use(cors());

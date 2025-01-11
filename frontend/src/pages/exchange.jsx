@@ -43,7 +43,7 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch(`${baseUrl}/exchange`)
+    fetch('https://backendfinancial-97b916zbd-farhaghallab3s-projects.vercel.app/exchange')
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

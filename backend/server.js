@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const allowedOrigins = [
-  "https://frontend-r1ilzkfqv-farhaghallab3s-projects.vercel.app/", // Frontend URL
+  "https://farhaghallab3-ficnancial-instruments-challenge-h5qw.vercel.app'", // Frontend URL
   "http://localhost:3000", // For local development
 ];
 

@@ -12,7 +12,7 @@ export default function Metadata() {
   
 
   useEffect(() => {
-    fetch(`${baseUrl}/metadata`)
+    fetch('https://backendfinancial-97b916zbd-farhaghallab3s-projects.vercel.app/metadata')
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits

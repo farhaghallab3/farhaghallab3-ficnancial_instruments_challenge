@@ -23,7 +23,7 @@ export default function Candles() {
 
   useEffect(() => {
     // Fetch data from the backend
-    fetch(`${baseUrl}/candle`)
+    fetch('https://backendfinancial-97b916zbd-farhaghallab3s-projects.vercel.app/candle')
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

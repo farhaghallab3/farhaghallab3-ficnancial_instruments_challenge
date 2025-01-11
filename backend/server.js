@@ -3,23 +3,6 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
-const allowedOrigins = [
-  "https://farhaghallab3-ficnancial-instruments-challenge-h5qw.vercel.app", // Frontend URL
-  "http://localhost:3000", // For local development
-];
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -39,8 +22,8 @@ const loadJSON = (fileName) => {
   }
 };
 
-// Routes without `/api` prefix
-app.get('/exchange', (req, res) => {
+// Routes to serve JSON files
+app.get('/api/exchange', (req, res) => {
   const data = loadJSON('exchange.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load exchange data.' });
@@ -48,7 +31,7 @@ app.get('/exchange', (req, res) => {
   res.json(data);
 });
 
-app.post('/exchange', (req, res) => {
+app.post('/api/exchange', (req, res) => {
   const newData = req.body; // Get new data from the request body
   const filePath = path.join(__dirname, 'data', 'exchange.json');
 
@@ -71,7 +54,9 @@ app.post('/exchange', (req, res) => {
   }
 });
 
-app.get('/metadata', (req, res) => {
+
+
+app.get('/api/metadata', (req, res) => {
   const data = loadJSON('metadata.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load metadata.' });
@@ -79,7 +64,7 @@ app.get('/metadata', (req, res) => {
   res.json(data);
 });
 
-app.get('/candle', (req, res) => {
+app.get('/api/candle', (req, res) => {
   console.log('Fetching candlestick data...');
   const data = loadJSON('candle.json');
   if (!data) {
@@ -90,12 +75,15 @@ app.get('/candle', (req, res) => {
   res.json(data);
 });
 
+
+// Export the app for testing purposes
+module.exports = app;
+
 // Start the server (only if not running in test environment)
 if (require.main === module) {
-  const PORT = process.env.PORT || 3001;
+  const PORT = 3001;
   app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
   });
-}
 
-module.exports = app;
+}

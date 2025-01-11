@@ -10,11 +10,11 @@ services:
 
   backend:
     build:
-      context: ./frontend/backend
+      context: ./backend
     ports:
       - "3001:3001"
     volumes:
-      - ./frontend/backend:/app
+      - ./backend:/app
     command: npm run start
     environment:
       - NODE_ENV=production

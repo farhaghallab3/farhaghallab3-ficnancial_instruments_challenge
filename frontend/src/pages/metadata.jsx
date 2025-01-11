@@ -3,7 +3,7 @@ import React from "react";
 import Head from "next/head";
 
 export default function Metadata() {
-  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || ""; // Use NEXT_PUBLIC_ for client-side access
+  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || "http://localhost:3001"; // Use NEXT_PUBLIC_ for client-side access
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
@@ -12,7 +12,7 @@ export default function Metadata() {
   
 
   useEffect(() => {
-    fetch(`${baseUrl}/api/metadata`)
+    fetch(`${baseUrl}/metadata`)
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits

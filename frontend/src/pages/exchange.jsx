@@ -4,7 +4,7 @@ import FocusLock from "react-focus-lock";
 import Head from "next/head";
 
 export default function Exchange() {
-  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || ""; // Use NEXT_PUBLIC_ for client-side access
+  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || "http://localhost:3001"; // Use NEXT_PUBLIC_ for client-side access
   const [data, setData] = useState([]); // Full data
   const [selectedCountry, setSelectedCountry] = useState("");
   const [filteredData, setFilteredData] = useState([]); // Filtered data for the table
@@ -43,7 +43,7 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch(`${baseUrl}/api/exchange`)
+    fetch(`${baseUrl}/exchange`)
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

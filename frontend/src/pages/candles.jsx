@@ -16,14 +16,14 @@ import Head from "next/head";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export default function Candles() {
-  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || ""; // Use NEXT_PUBLIC_ for client-side access
+  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || "http://localhost:3001"; // Use NEXT_PUBLIC_ for client-side access
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState({});
   const [selectedSymbol, setSelectedSymbol] = useState("");
 
   useEffect(() => {
     // Fetch data from the backend
-    fetch(`${baseUrl}/api/candle`)
+    fetch(`${baseUrl}/candle`)
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

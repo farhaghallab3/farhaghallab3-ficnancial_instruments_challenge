@@ -22,8 +22,8 @@ const loadJSON = (fileName) => {
   }
 };
 
-// Routes to serve JSON files
-app.get('/api/exchange', (req, res) => {
+// Routes without `/api` prefix
+app.get('/exchange', (req, res) => {
   const data = loadJSON('exchange.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load exchange data.' });
@@ -31,7 +31,7 @@ app.get('/api/exchange', (req, res) => {
   res.json(data);
 });
 
-app.post('/api/exchange', (req, res) => {
+app.post('/exchange', (req, res) => {
   const newData = req.body; // Get new data from the request body
   const filePath = path.join(__dirname, 'data', 'exchange.json');
 
@@ -54,9 +54,7 @@ app.post('/api/exchange', (req, res) => {
   }
 });
 
-
-
-app.get('/api/metadata', (req, res) => {
+app.get('/metadata', (req, res) => {
   const data = loadJSON('metadata.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load metadata.' });
@@ -64,7 +62,7 @@ app.get('/api/metadata', (req, res) => {
   res.json(data);
 });
 
-app.get('/api/candle', (req, res) => {
+app.get('/candle', (req, res) => {
   console.log('Fetching candlestick data...');
   const data = loadJSON('candle.json');
   if (!data) {
@@ -75,15 +73,12 @@ app.get('/api/candle', (req, res) => {
   res.json(data);
 });
 
-
-// Export the app for testing purposes
-module.exports = app;
-
 // Start the server (only if not running in test environment)
 if (require.main === module) {
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
   });
-
 }
+
+module.exports = app;

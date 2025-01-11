@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../index"); // Import the app from server.js
+const app = require("../server"); // Import the app from server.js
 
 describe("Backend API Endpoints", () => {
    

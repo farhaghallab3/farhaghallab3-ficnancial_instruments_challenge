@@ -10,7 +10,7 @@ app.use(express.json());
 // Function to load JSON data dynamically with better error handling
 const loadJSON = (fileName) => {
   try {
-    const filePath = path.join(__dirname, 'data', fileName);
+    const filePath = path.join(__dirname, '../data', fileName); // Adjust path
     if (!fs.existsSync(filePath)) {
       throw new Error(`File ${fileName} not found.`);
     }
@@ -22,8 +22,7 @@ const loadJSON = (fileName) => {
   }
 };
 
-// Routes to serve JSON files
-app.get('/api/exchange', (req, res) => {
+app.get('/exchange', (req, res) => {
   const data = loadJSON('exchange.json');
   if (!data) {
     return res.status(500).json({ message: 'Failed to load exchange data.' });
@@ -31,9 +30,9 @@ app.get('/api/exchange', (req, res) => {
   res.json(data);
 });
 
-app.post('/api/exchange', (req, res) => {
+app.post('/exchange', (req, res) => {
   const newData = req.body; // Get new data from the request body
-  const filePath = path.join(__dirname, 'data', 'exchange.json');
+  const filePath = path.join(__dirname, '../data', 'exchange.json'); // Adjust path
 
   try {
     const existingData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -54,42 +53,20 @@ app.post('/api/exchange', (req, res) => {
   }
 });
 
-
-
-app.get('/api/metadata', (req, res) => {
-  try {
-    const data = loadJSON('metadata.json');
-    if (!data) {
-      throw new Error('Failed to load metadata data');
-    }
-    res.json(data);
-  } catch (error) {
-    console.error('Error in /api/metadata:', error.message);
-    res.status(500).json({ message: 'Failed to load metadata data.' });
-  }
-});
-
-
-app.get('/api/candle', (req, res) => {
-  console.log('Fetching candlestick data...');
-  const data = loadJSON('candle.json');
+app.get('/metadata', (req, res) => {
+  const data = loadJSON('metadata.json');
   if (!data) {
-    console.error('Failed to load candle data.');
-    return res.status(500).json({ message: 'Failed to load candle data.' });
+    return res.status(500).json({ message: 'Failed to load metadata.' });
   }
-  console.log('Candle data loaded:', data);
   res.json(data);
 });
 
+app.get('/candle', (req, res) => {
+  const data = loadJSON('candle.json');
+  if (!data) {
+    return res.status(500).json({ message: 'Failed to load candle data.' });
+  }
+  res.json(data);
+});
 
-// Export the app for testing purposes
 module.exports = app;
-
-// Start the server (only if not running in test environment)
-if (require.main === module) {
-  const PORT = 3001;
-  app.listen(PORT, () => {
-    console.log(`Backend server running on http://localhost:${PORT}`);
-  });
-
-}

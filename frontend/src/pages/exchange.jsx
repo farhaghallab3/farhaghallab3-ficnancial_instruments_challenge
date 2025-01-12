@@ -5,7 +5,7 @@ import Head from "next/head";
 
 export default function Exchange() {
 
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "https://backend-inky-one-31.vercel.app/";
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
   const [data, setData] = useState([]); // Full data
   const [selectedCountry, setSelectedCountry] = useState("");
   const [filteredData, setFilteredData] = useState([]); // Filtered data for the table

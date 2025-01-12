@@ -3,7 +3,7 @@ import React from "react";
 import Head from "next/head";
 
 export default function Metadata() {
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "https://backend-inky-one-31.vercel.app/";
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");

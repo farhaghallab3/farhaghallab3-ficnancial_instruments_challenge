@@ -6,7 +6,7 @@ const path = require('path');
 
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "https://frontend-fdn9mlbmj-farhaghallab3s-projects.vercel.app/" }));
 app.use(express.json());
 
 // Function to load JSON data dynamically with better error handling

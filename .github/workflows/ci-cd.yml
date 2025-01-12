@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 18
 
-     
+    
 
       # Install dependencies and test the frontend
       - name: Install and Test Frontend

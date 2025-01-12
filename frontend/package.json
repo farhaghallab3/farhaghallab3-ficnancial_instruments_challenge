@@ -12,7 +12,7 @@
     "deploy": " gh-pages -d out"
   },
   "dependencies": {
-    "homepage": "http://farhaghallab3.github.io/farhaghallab3-ficnancial_instruments_challenge",
+    
     "chart.js": "^4.4.7",
     "gh-pages": "^6.3.0",
     "init": "^0.1.2",

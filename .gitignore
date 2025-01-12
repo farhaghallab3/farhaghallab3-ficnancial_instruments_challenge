@@ -1,0 +1,27 @@
+
+# Build output
+.next/
+build/
+
+# Environment variables
+.env
+
+# Log files
+*.log
+
+# Mac OS specific
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+node_modules
+.vercel
+
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local

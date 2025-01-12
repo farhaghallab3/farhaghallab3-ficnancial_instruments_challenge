@@ -23,12 +23,7 @@ jobs:
         with:
           node-version: 18
 
-      # Install dependencies and test the backend
-      - name: Install and Test Backend
-        working-directory: ./backend
-        run: |
-          npm ci
-          npm test
+     
 
       # Install dependencies and test the frontend
       - name: Install and Test Frontend

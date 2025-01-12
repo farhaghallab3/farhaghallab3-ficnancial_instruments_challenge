@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import Head from "next/head";
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 // Register required Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -13,7 +14,8 @@ export default function Candles() {
 
   useEffect(() => {
     // Fetch data
-    fetch("http://localhost:3001/api/candle")
+    
+fetch(`${baseUrl}/candle`)
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

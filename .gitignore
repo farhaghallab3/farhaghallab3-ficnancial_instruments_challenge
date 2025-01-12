@@ -17,3 +17,11 @@ docker-compose.override.yml
 
 node_modules
 .vercel
+
+backend/.env
+backend/.env.local
+backend/.env.*.local
+
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local

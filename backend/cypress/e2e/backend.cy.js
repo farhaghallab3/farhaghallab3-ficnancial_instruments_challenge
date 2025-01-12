@@ -1,5 +1,5 @@
 describe("Backend API Endpoints", () => {
-    const baseUrl = "http://localhost:3001"; // Replace with your backend URL if it's different
+    const baseUrl = process.env.NEXT_PUBLIC_BACKEND_BASE_URL || ""; // Replace with your backend URL if it's different
   
     it("GET /api/exchange - Should return exchange data", () => {
       cy.request(`${baseUrl}/api/exchange`).then((response) => {

@@ -9,7 +9,9 @@
     "test": "jest",
     "build": "next build frontend",
     "start": "next start frontend",
-    "dev": "next"
+    "dev": "next",
+    "predeploy": "next build frontend",
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "testEnvironment": "jsdom",
@@ -18,10 +20,12 @@
     }
   },
   "dependencies": {
+    "homepage": "http://farhaghallab3.github.io/farhaghallab3-ficnancial_instruments_challenge",
     "@vercel/analytics": "^1.4.1",
+    "gh-pages": "^6.3.0",
     "lighthouse": "^12.3.0",
     "next": "^15.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
-  } 
+  }
 }

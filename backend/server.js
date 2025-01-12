@@ -3,6 +3,8 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -81,7 +83,7 @@ module.exports = app;
 
 // Start the server (only if not running in test environment)
 if (require.main === module) {
-  const PORT = 3001;
+  const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
   });

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev ",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,7 +12,7 @@
     "deploy": " gh-pages -d out"
   },
   "dependencies": {
-    
+    "homepage": "http://farhaghallab3.github.io/farhaghallab3-ficnancial_instruments_challenge",
     "chart.js": "^4.4.7",
     "gh-pages": "^6.3.0",
     "init": "^0.1.2",
@@ -30,8 +30,8 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
-    "@types/node": "20.17.12",
-    "@types/react": "19.0.5",
+    "@types/node": "^20",
+    "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
     "babel-jest": "^29.7.0",
@@ -44,7 +44,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
-    "typescript": "5.7.3",
+    "typescript": "^5",
     "whatwg-fetch": "^3.6.20"
   }
 }

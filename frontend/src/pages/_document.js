@@ -1,8 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
-  const PORT = process.env.PORT || 3001; // Use environment variable for the base URL
-
   return (
     <Html lang="en">
       <Head>
@@ -16,9 +14,12 @@ export default function Document() {
         />
 
         {/* Canonical URL */}
-        <link rel="canonical" href={`${PORT}/`} />
+        <link 
+          rel="canonical" 
+          href={`http://localhost:3000/`} 
+        />
 
-        {/* Structured Data */}
+        {/* Structured Data for Dashboard */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -28,10 +29,12 @@ export default function Document() {
               name: "Dashboard für Finanzinstrumente",
               description:
                 "Ein Dashboard zum Erkunden von Börsen-, Metadaten- und Candle-Daten.",
-              url: `${PORT}/`,
+              url: "http://localhost:3000",
             }),
           }}
         />
+
+        {/* Structured Data for Exchange Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -41,10 +44,12 @@ export default function Document() {
               name: "Börsen-Daten | Finanzinstrumente Dashboard",
               description:
                 "Sehen Sie Börsendaten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu.",
-              url: `${PORT}/api/exchange`,
+              url: `http://localhost:3001/api/exchange`,
             }),
           }}
         />
+
+        {/* Structured Data for Metadata Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -54,10 +59,12 @@ export default function Document() {
               name: "Metadaten-Daten | Finanzinstrumente Dashboard",
               description:
                 "Sehen Sie Metadaten-Daten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu.",
-              url: `${PORT}/api/metadata`,
+              url: `http://localhost:3001/api/metadata`,
             }),
           }}
         />
+
+        {/* Structured Data for Candle Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -66,7 +73,7 @@ export default function Document() {
               "@type": "WebPage",
               name: "Candle Data",
               description: "View and analyze candle data for financial symbols.",
-              url: `${PORT}/api/candle`,
+              url: `http://localhost:3001/api/candle`,
             }),
           }}
         />

@@ -3,10 +3,13 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
-
-
 const app = express();
-app.use(cors({ origin: "https://frontend-fdn9mlbmj-farhaghallab3s-projects.vercel.app/" }));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Frontend URL
+    methods: ["GET", "POST"],
+  })
+);
 app.use(express.json());
 
 // Function to load JSON data dynamically with better error handling
@@ -83,7 +86,7 @@ module.exports = app;
 
 // Start the server (only if not running in test environment)
 if (require.main === module) {
-  const PORT = process.env.PORT || 3001;
+  const PORT = 3001;
   app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
   });

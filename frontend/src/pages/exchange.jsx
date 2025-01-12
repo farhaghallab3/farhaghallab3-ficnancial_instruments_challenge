@@ -5,7 +5,6 @@ import Head from "next/head";
 
 export default function Exchange() {
 
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
   const [data, setData] = useState([]); // Full data
   const [selectedCountry, setSelectedCountry] = useState("");
   const [filteredData, setFilteredData] = useState([]); // Filtered data for the table
@@ -44,21 +43,20 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch(`${BASE_URL}/api/exchange`)
-      .then((res) => res.json())
-      .then((response) => {
-        const extractedData =
-          response.hits?.hits?.map((item) => ({
-            _index: item._index || "N/A",
-            _type: item._type || "_doc",
-            _id: item._id || "N/A",
-            _score: item._score || 0,
-            _source: item._source || {}, // Include _source object
-          })) || [];
-        setData(extractedData);
-        setFilteredData(extractedData); // Initialize filtered data
-      })
-      .catch((err) => console.error("Error fetching exchange data:", err));
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/exchange`)
+  .then((res) => res.json())
+  .then((response) => {
+    const extractedData = response.hits?.hits?.map((item) => ({
+      _index: item._index || "N/A",
+      _type: item._type || "_doc",
+      _id: item._id || "N/A",
+      _score: item._score || 0,
+      _source: item._source || {}, // Include _source object
+    })) || [];
+    setData(extractedData);
+    setFilteredData(extractedData);
+  })
+  .catch((err) => console.error("Error fetching exchange data:", err));
   }, []);
 
   // Handle search
@@ -126,7 +124,7 @@ export default function Exchange() {
     setFilteredData(updatedData);
 
     // Send new data to the backend
-    fetch(`${BASE_URL}/api/exchange`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/exchange`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sanitizedData),

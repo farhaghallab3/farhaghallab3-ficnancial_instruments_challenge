@@ -1,6 +1,9 @@
-module.exports = {
-  pageExtensions: ['js', 'jsx'],
-  trailingSlash: true, // Optional, depending on your deployment
-  output: 'standalone', // Optional, depending on your deployment
-  
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    unoptimized: true, // Disable image optimization for export
+  },
+  output: 'export', // Enable static export
 };
+
+module.exports = nextConfig;

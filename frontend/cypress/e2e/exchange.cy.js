@@ -1,7 +1,7 @@
 describe('Exchange Page Tests', () => {
   beforeEach(() => {
     // Visit the Exchange page before each test
-    cy.visit(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/exchange`);
+    cy.visit('http://localhost:3000/exchange');
   });
 
   it('Should load the Exchange page and display the table', () => {

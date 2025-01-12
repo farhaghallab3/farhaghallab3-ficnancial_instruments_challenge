@@ -1,7 +1,7 @@
 describe('Candles Page Tests', () => {
   beforeEach(() => {
     // Visit the Candles page before each test
-    cy.visit(`${import.meta.env.VITE_REACT_APP_BASE_URL}/api/candle`);
+    cy.visit('http://localhost:3000/candles');
   });
 
   it('Should load the Candles page and display the chart', () => {

@@ -5,7 +5,7 @@ import Head from "next/head";
 
 export default function Exchange() {
 
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
   const [data, setData] = useState([]); // Full data
   const [selectedCountry, setSelectedCountry] = useState("");
   const [filteredData, setFilteredData] = useState([]); // Filtered data for the table
@@ -44,7 +44,7 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch(`${baseUrl}/exchange`)
+    fetch(`${BASE_URL}/api/exchange`)
       .then((res) => res.json())
       .then((response) => {
         const extractedData =
@@ -126,7 +126,7 @@ export default function Exchange() {
     setFilteredData(updatedData);
 
     // Send new data to the backend
-    fetch(`${baseUrl}/exchange`, {
+    fetch(`${BASE_URL}/api/exchange`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sanitizedData),

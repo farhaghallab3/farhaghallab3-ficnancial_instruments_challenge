@@ -3,14 +3,14 @@ import React from "react";
 import Head from "next/head";
 
 export default function Metadata() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 
   useEffect(() => {
-    fetch(`${baseUrl}/metadata`)
+    fetch(`${BASE_URL}/api/metadata`)
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits

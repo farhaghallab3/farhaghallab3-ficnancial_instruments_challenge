@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
-  const baseUrl = process.env.VITE_REACT_APP_BACKEND_BASEURL || ''; // Use environment variable for the base URL
+  const PORT = process.env.PORT || 3001; // Use environment variable for the base URL
 
   return (
     <Html lang="en">
@@ -16,7 +16,7 @@ export default function Document() {
         />
 
         {/* Canonical URL */}
-        <link rel="canonical" href={`${baseUrl}/`} />
+        <link rel="canonical" href={`${PORT}/`} />
 
         {/* Structured Data */}
         <script
@@ -28,7 +28,7 @@ export default function Document() {
               name: "Dashboard für Finanzinstrumente",
               description:
                 "Ein Dashboard zum Erkunden von Börsen-, Metadaten- und Candle-Daten.",
-              url: `${baseUrl}/`,
+              url: `${PORT}/`,
             }),
           }}
         />
@@ -41,7 +41,7 @@ export default function Document() {
               name: "Börsen-Daten | Finanzinstrumente Dashboard",
               description:
                 "Sehen Sie Börsendaten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu.",
-              url: `${baseUrl}/api/exchange`,
+              url: `${PORT}/api/exchange`,
             }),
           }}
         />
@@ -54,7 +54,7 @@ export default function Document() {
               name: "Metadaten-Daten | Finanzinstrumente Dashboard",
               description:
                 "Sehen Sie Metadaten-Daten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu.",
-              url: `${baseUrl}/api/metadata`,
+              url: `${PORT}/api/metadata`,
             }),
           }}
         />
@@ -66,7 +66,7 @@ export default function Document() {
               "@type": "WebPage",
               name: "Candle Data",
               description: "View and analyze candle data for financial symbols.",
-              url: `${baseUrl}/api/candle`,
+              url: `${PORT}/api/candle`,
             }),
           }}
         />

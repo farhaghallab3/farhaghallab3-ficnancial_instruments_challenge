@@ -44,7 +44,7 @@ export default function Document() {
               name: "Börsen-Daten | Finanzinstrumente Dashboard",
               description:
                 "Sehen Sie Börsendaten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu.",
-              url: `https://backend-inky-one-31.vercel.app/api/exchange`,
+              url: `https://farhaghallab3-ficnancial-instruments-challenge-btx7cy7z2.vercel.app/api/exchange`,
             }),
           }}
         />
@@ -59,7 +59,7 @@ export default function Document() {
               name: "Metadaten-Daten | Finanzinstrumente Dashboard",
               description:
                 "Sehen Sie Metadaten-Daten, analysieren Sie Finanzinformationen und fügen Sie neue Daten hinzu.",
-              url: `https://backend-inky-one-31.vercel.app/api/metadata`,
+              url: `https://farhaghallab3-ficnancial-instruments-challenge-btx7cy7z2.vercel.app/api/metadata`,
             }),
           }}
         />
@@ -73,7 +73,7 @@ export default function Document() {
               "@type": "WebPage",
               name: "Candle Data",
               description: "View and analyze candle data for financial symbols.",
-              url: `https://backend-inky-one-31.vercel.app/api/candle`,
+              url: `https://farhaghallab3-ficnancial-instruments-challenge-btx7cy7z2.vercel.app/api/candle`,
             }),
           }}
         />

@@ -15,7 +15,7 @@ export default function Candles() {
   useEffect(() => {
     // Fetch data
     
-fetch("http://localhost:3001/api/candle")
+fetch("https://backend-cokbuuznw-farhaghallab3s-projects.vercel.app/api/candles")
       .then((res) => res.json())
       .then((response) => {
         const extractedData =

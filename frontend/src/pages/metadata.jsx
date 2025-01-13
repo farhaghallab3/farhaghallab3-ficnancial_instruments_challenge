@@ -9,7 +9,7 @@ export default function Metadata() {
   const [selectedCountry, setSelectedCountry] = useState("");
 
   useEffect(() => {
-    fetch("https://backend-pn8qvf76p-farhaghallab3s-projects.vercel.app/api/metadata")
+    fetch("http://localhost:3001/api/metadata")
       .then((res) => res.json())
       .then((response) => {
         // Extract data from response: hits.hits

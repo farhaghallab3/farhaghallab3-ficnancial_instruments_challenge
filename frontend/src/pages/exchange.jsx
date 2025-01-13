@@ -43,7 +43,7 @@ export default function Exchange() {
 
   useEffect(() => {
     // Fetch exchange data dynamically from the backend
-    fetch("https://backend-pn8qvf76p-farhaghallab3s-projects.vercel.app/api/exchange")
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/exchange`)
   .then((res) => res.json())
   .then((response) => {
     const extractedData = response.hits?.hits?.map((item) => ({
@@ -124,7 +124,7 @@ export default function Exchange() {
     setFilteredData(updatedData);
 
     // Send new data to the backend
-    fetch("https://backend-pn8qvf76p-farhaghallab3s-projects.vercel.app/api/exchange", {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/exchange`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sanitizedData),

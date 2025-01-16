@@ -1572,6 +1572,38 @@
             "segmentNameExchange": "N/A"
           }
         }
+      },
+      {
+        "_source": {
+          "_index": "1234RE$t6",
+          "_type": "genz",
+          "_id": "qw34rt5",
+          "_score": 0,
+          "_source": {
+            "symbol": "N/A",
+            "ticker": "N/A",
+            "code": "qwe",
+            "isin": "N/A",
+            "type": "N/A",
+            "wpkn": "N/A",
+            "name": "N/A",
+            "nameLong": "N/A",
+            "region": "N/A",
+            "country": "N/A",
+            "currency": "N/A",
+            "figi": "N/A",
+            "cik": "N/A",
+            "lei": "N/A",
+            "source": "N/A",
+            "operatingMIC": "N/A",
+            "codeExchange": "N/A",
+            "virtualExchange": "N/A",
+            "nameExchange": "N/A",
+            "isArtificialExchange": "N/A",
+            "segmentExchange": "tru",
+            "segmentNameExchange": "N/A"
+          }
+        }
       }
     ]
   }

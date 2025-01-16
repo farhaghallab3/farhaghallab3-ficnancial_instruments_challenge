@@ -6,8 +6,8 @@ const path = require('path');
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000" 
-    ,"https://frontend-fnwjkjwk9-farhaghallab3s-projects.vercel.app/",], // Frontend URL
+    origin: [ 
+    "https://disgusting-position-farha.surge.sh",], // Frontend URL
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
